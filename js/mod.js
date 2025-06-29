@@ -1,19 +1,19 @@
 let modInfo = {
-	name: "The Death Knight Tree",
-	author: "Spas_Ray",
-	pointsName: "points",
+	name: "The Wonderhoi Tree",
+	author: "SpasRay",
+	pointsName: "ws能量",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal (5), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1",
+	name: "Something more than literally nothing",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -33,15 +33,21 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	if (hasUpgrade('A', 11)) {
+	return true	
+	} else {
+    return false
+    }
 }
 
 // Calculate points/sec!
 function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
-
+    
 	let gain = new Decimal(1)
+	if (hasUpgrade('A', 12)) gain = gain.add(2)
+	if (hasUpgrade('A', 13)) gain = gain.add(5)
 	return gain
 }
 
